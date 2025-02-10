@@ -142,7 +142,7 @@ void handle_position(circle_array* arr){
         if ((c->centre.y + c->radius) > HEIGHT){
             c->centre.y = HEIGHT - c->radius;
         }
-        if ((c->centre.x - c->radius) < 0){
+        if ((c->centre.y - c->radius) < 0){
             c->centre.y = c->radius;
         }
     }
@@ -158,8 +158,8 @@ void set_new_speed_vector(circle* crl1, circle* crl2){
 
     Vector2 normal = Vector2Normalize(Vector2Subtract(c2, c1));
 
-    float s1 = -1 * Vector2DotProduct(Vector2Subtract(v1, v2), Vector2Subtract(c1, c2)) / (dist * dist);
-    float s2 = -1 * Vector2DotProduct(Vector2Subtract(v2, v1), Vector2Negate(Vector2Subtract(c1, c2))) / (dist * dist);
+    float s1 = -0.85 * Vector2DotProduct(Vector2Subtract(v1, v2), Vector2Subtract(c1, c2)) / (dist * dist);
+    float s2 = -0.85 * Vector2DotProduct(Vector2Subtract(v2, v1), Vector2Negate(Vector2Subtract(c1, c2))) / (dist * dist);
 
     if (dist < (crl1->radius + crl2->radius))
     {   
@@ -197,7 +197,7 @@ void change_selected_circle(circle_array* arr, circle** current_c_ptr, circle* m
                 if (*current_c_ptr != NULL)
                     (*current_c_ptr)->color = RAYWHITE;
                 (*current_c_ptr) = &(arr->circles[i]);
-                (*current_c_ptr)->color = PURPLE;
+                (*current_c_ptr)->color = SELECTED_CIRCLE_COLOR;
                 return;
             }
         }
